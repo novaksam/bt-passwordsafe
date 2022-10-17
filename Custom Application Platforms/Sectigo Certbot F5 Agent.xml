@@ -1,0 +1,306 @@
+<CustomPlatform>
+  <Active>true</Active>
+  <CreateDate>2022\10\13 21:20:5.727</CreateDate>
+  <CreatedByUserID>1</CreatedByUserID>
+  <LastUpdateDate>2022\10\17 17:23:17.513</LastUpdateDate>
+  <LastUpdateUserID>1</LastUpdateUserID>
+  <Name>Sectigo Certbot F5 Agent</Name>
+  <ShellPrompt></ShellPrompt>
+  <ConfigPrompt></ConfigPrompt>
+  <ElevatedPrompt></ElevatedPrompt>
+  <EndOfLine>\r</EndOfLine>
+  <ExitCommand>exit</ExitCommand>
+  <Interrupt></Interrupt>
+  <IntermediateTargetFlag>true</IntermediateTargetFlag>
+  <PasswordCommand></PasswordCommand>
+  <Elevation>true</Elevation>
+  <ElevationCommand>sudo</ElevationCommand>
+  <PlatformId>1001</PlatformId>
+  <Ssh>true</Ssh>
+  <Port>22</Port>
+  <LogonAccount>false</LogonAccount>
+  <AccountNameFormatTypeFlag>false</AccountNameFormatTypeFlag>
+  <SupportsJumphost>false</SupportsJumphost>
+  <EnablePassword>false</EnablePassword>
+  <ExpectScriptItems>
+    <ExpectScript type="Check Password">
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>true</IsParent>
+        <Response />
+        <Stimulus />
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;elevationcommand&gt;&gt; -i</Response>
+        <Stimulus>([#$]|(~&gt;)|(~#)|(~$))</Stimulus>
+        <UseErrorHandling>true</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;funcacctpwd&gt;&gt;</Response>
+        <Stimulus>\[sudo\] </Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>RESULT=0 &amp;&amp; for E in $(ls /etc/sectigo/*.yaml); do grep -q 'password:\ &lt;&lt;manacctoldpwd&gt;&gt;' $E; if [ "$?" -eq 1 ]; then RESULT=1; fi ; done &amp;&amp; echo "Result: $RESULT"</Response>
+        <Stimulus>&lt;&lt;PROMPT&gt;&gt;</Stimulus>
+        <UseErrorHandling>true</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>2</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;exitcommand&gt;&gt;@Success(Password check succeeded)</Response>
+        <Stimulus>Result: 0</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>3</Action>
+        <ParentName>Error handling</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>2</Id>
+        <IsErrorHandler>true</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>true</IsParent>
+        <Response />
+        <Stimulus />
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>3</Action>
+        <ParentName>Error handling</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>2</Id>
+        <IsErrorHandler>true</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;exitcommand&gt;&gt;@Failure(Password check failed: Grep failed to find the password)</Response>
+        <Stimulus>Result: 1</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+    </ExpectScript>
+    <ExpectScript type="Change Password">
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>true</IsParent>
+        <Response />
+        <Stimulus />
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;elevationcommand&gt;&gt; -i</Response>
+        <Stimulus>([#$]|(~&gt;)|(~#)|(~$))</Stimulus>
+        <UseErrorHandling>true</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;funcacctpwd&gt;&gt;</Response>
+        <Stimulus>\[sudo\]</Stimulus>
+        <UseErrorHandling>true</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>1</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>4</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response> for E in $(ls /etc/sectigo/*.yaml); do sed -i 's/password:\ .*/password:\ &lt;&lt;manacctnewpwd&gt;&gt;/g' $E ; done</Response>
+        <Stimulus>&lt;&lt;PROMPT&gt;&gt;</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>Change and Check</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>4</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>true</IsParent>
+        <Response></Response>
+        <Stimulus></Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>Change and Check</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>4</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>true</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response> for E in $(ls /etc/sectigo/*.yaml); do sed -i 's/password:\ .*/password:\ &lt;&lt;manacctnewpwd&gt;&gt;/g' $E ; done</Response>
+        <Stimulus>&lt;&lt;PROMPT&gt;&gt;</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>Change and Check</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>4</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>RESULT=0 &amp;&amp; for E in $(ls /etc/sectigo/*.yaml); do grep -q 'password:\ &lt;&lt;manacctnewpwd&gt;&gt;' $E; if [ "$?" -eq 1 ]; then RESULT=1; fi ; done &amp;&amp; echo "Result: $RESULT"</Response>
+        <Stimulus>&lt;&lt;PROMPT&gt;&gt;</Stimulus>
+        <UseErrorHandling>true</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>2</Action>
+        <ParentName>Change and Check</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>4</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;exitcommand&gt;&gt;@Success(Password change succeeded)</Response>
+        <Stimulus>Result: 0</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>3</Action>
+        <ParentName>Error handling</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>2</Id>
+        <IsErrorHandler>true</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>true</IsParent>
+        <Response />
+        <Stimulus />
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>3</Action>
+        <ParentName>Error handling</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>2</Id>
+        <IsErrorHandler>true</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;exitcommand&gt;&gt;@Failure(Password change failed)</Response>
+        <Stimulus>Result: 1</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+    </ExpectScript>
+    <ExpectScript type="Replace Public Key">
+      <ExpectScriptItem>
+        <Action>0</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>true</IsParent>
+        <Response />
+        <Stimulus />
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>2</Action>
+        <ParentName>After login</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>1</Id>
+        <IsErrorHandler>false</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;exitcommand&gt;&gt;@Success(Store public key succeeded)</Response>
+        <Stimulus>&lt;&lt;PROMPT&gt;&gt;</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>3</Action>
+        <ParentName>Error handling</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>2</Id>
+        <IsErrorHandler>true</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>true</IsParent>
+        <Response />
+        <Stimulus />
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+      <ExpectScriptItem>
+        <Action>3</Action>
+        <ParentName>Error handling</ParentName>
+        <ExpectType>0</ExpectType>
+        <Goto>0</Goto>
+        <Id>2</Id>
+        <IsErrorHandler>true</IsErrorHandler>
+        <IsGotoDestination>false</IsGotoDestination>
+        <IsParent>false</IsParent>
+        <Response>&lt;&lt;exitcommand&gt;&gt;@Failure(Remove public key failed: Timeout)</Response>
+        <Stimulus>(?i)timeout</Stimulus>
+        <UseErrorHandling>false</UseErrorHandling>
+      </ExpectScriptItem>
+    </ExpectScript>
+  </ExpectScriptItems>
+</CustomPlatform>
